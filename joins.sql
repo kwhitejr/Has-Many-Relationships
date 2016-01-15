@@ -54,8 +54,21 @@
 -- WHERE comments.body LIKE '%matrix%'
 
 -- 12
-SELECT users.first_name, users.last_name, comments.body AS comment_body
-FROM comments
-  INNER JOIN posts ON (posts.id = comments.post_id)
-  INNER JOIN users ON (users.id = comments.user_id)
-WHERE comments.body like '%SSL%' AND posts.content like '%dolorum%';
+-- SELECT users.first_name, users.last_name, comments.body AS comment_body
+-- FROM comments
+--   INNER JOIN posts ON (posts.id = comments.post_id)
+--   INNER JOIN users ON (users.id = comments.user_id)
+-- WHERE comments.body like '%SSL%' AND posts.content like '%dolorum%';
+
+-- 13
+SELECT users.first_name AS post_author_first_name,
+  users.last_name AS post_author_last_name,
+  posts.title AS post_title,
+  users.username AS comment_author_username,
+  comments.body AS comment_body
+FROM posts
+  INNER JOIN comments ON (posts.id = comments.post_id)
+  INNER JOIN users ON (users.id = posts.user_id)
+WHERE (comments.body LIKE '%SSL%'
+  OR comments.body LIKE '%firewall%')
+  AND posts.content LIKE '%nemo%';
